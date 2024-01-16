@@ -1,0 +1,28 @@
+.searchStringContainer {
+    background-color: rgb(106,176,210);
+    padding: 5px 5px;
+    border-radius: 30px;
+    border: rgb(59,132,183) 2px solid;
+    color: white;
+    margin-left: 920px;
+    width: 210px;
+    height: 30px;
+    display: flex;
+}
+
+.searchStringInput {
+    outline: none;
+    background-color: rgb(106,176,210);
+    margin-left: 2px;
+    border: none;
+    width: 180px;
+    color: white;
+}
+
+.searchSvg {
+    margin-top: 7px;
+}
+
+.searchString::placeholder {
+    
+}
