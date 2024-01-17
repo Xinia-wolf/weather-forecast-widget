@@ -1,8 +1,8 @@
 .searchStringContainer {
-    background-color: rgb(106,176,210);
+    background-color: rgb(189,184,165);
     padding: 5px 5px;
     border-radius: 30px;
-    border: rgb(59,132,183) 2px solid;
+    border: rgb(117,129,127) 2px solid;
     color: white;
     margin-left: 920px;
     width: 210px;
@@ -12,7 +12,7 @@
 
 .searchStringInput {
     outline: none;
-    background-color: rgb(106,176,210);
+    background-color: rgb(189,184,165);
     margin-left: 2px;
     border: none;
     width: 180px;
