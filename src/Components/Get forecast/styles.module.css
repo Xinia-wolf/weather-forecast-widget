@@ -1,0 +1,32 @@
+.getForecast {
+    display: flex;
+    margin-left: -280px;
+    margin-top: 55px;
+}
+
+.displayLocation {
+    background-color: rgb(189,184,165);
+    padding: 5px 5px;
+    border-radius: 30px;
+    border: rgb(117,129,127) 2px solid;
+    color: white;
+    width: 210px;
+    height: 30px;
+}
+
+.forecastButton {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: rgb(189,184,165);
+    color: white;
+    border: rgb(117,129,127) 2px solid;
+    transition: 0.3s;
+    margin-left: 10px;
+}
+
+.forecastButton:hover {
+    cursor: pointer;
+    box-shadow: 0px 2px 8px 2px rgba(141,150,178,.3);
+    transform: scale(1.05);
+}
