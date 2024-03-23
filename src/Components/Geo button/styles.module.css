@@ -2,11 +2,11 @@
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    background-color: rgb(189,184,165);
-    color: white;
-    border: rgb(117,129,127) 2px solid;
+    background-color: #FFFF73;
+    color: #232323;
+    border: #9e9ea0 2px solid;
     transition: 0.3s;
-    margin-left: 900px;
+    margin-left: 650px;
 }
 
 .geoButton:hover {

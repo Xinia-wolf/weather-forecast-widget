@@ -1,9 +1,0 @@
-.widget {
-  padding-top: 25px;
-  background-image: url("./Assets/Облако\ с\ дождём.jpg");
-  width: 100%;
-  height: 100vh;
-  background-size: cover;
-  
-  display: flex;
-}

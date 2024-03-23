@@ -3,11 +3,11 @@
 }
 
 .searchStringContainer {
-    background-color: rgb(189,184,165);
+    background-color: #FFFF73;
     padding-left: 10px;
     border-radius: 30px;
-    border: rgb(117,129,127) 2px solid;
-    color: white;
+    border: #9e9ea0 2px solid;
+    color: #232323;
     width: 230px;
     height: 40px;
     display: flex;
@@ -16,11 +16,11 @@
 
 .searchStringInput {
     outline: none;
-    background-color: rgb(189,184,165);
+    background-color: #FFFF73;
     margin-left: 2px;
     border: none;
     width: 155px;
-    color: white;
+    color: #232323;
 }
 
 .forecastButton {
@@ -28,9 +28,9 @@
     height: 40px;
     border-radius: 45%;
     background-color: transparent;
-    color: white;
+    color: #232323;
     border: none;
-    border-left: rgb(117,129,127) 3px solid;
+    border-left: #9e9ea0 3px solid;
     transition: 0.3s;
     margin-left: 2px;
 }

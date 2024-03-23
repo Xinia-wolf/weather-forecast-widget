@@ -1,0 +1,61 @@
+.switchBlock {
+    width: 105px;
+    height: 38px;
+    margin-left: 100px;
+}
+
+.toggle {
+    position: relative ;
+    display: flex;
+    width: 90px;
+    height: 38px;
+    background-color: #FFFF00;
+    border-radius: 30px;
+    border: 2px solid gray;
+}
+       
+.toggle:after {
+    content: '';
+    position: absolute;
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    background-color: gray;
+    top: 0.5px; 
+    left: 1px;
+    transition:  all 0.5s;
+}
+       
+.buttonCaption {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+    margin-left: 25px;
+    text-align: center;
+}
+
+.buttonCaptionNow {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+    width: 20px;
+    height: 20px;
+    margin-top: 10px;
+    margin-left: 7px;
+    text-align: center;
+}
+       
+.checkbox:checked + .toggle::after {
+    left: 52px; 
+}
+       
+.checkbox:checked + .toggle {
+    background-color: red;
+}
+       
+.checkbox { 
+    display: none;
+}
