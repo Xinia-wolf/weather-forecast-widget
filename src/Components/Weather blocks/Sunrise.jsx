@@ -2,7 +2,6 @@ import React from "react";
 import st from "./styles.module.css";
 
 const Sunrise = ({ sunriseUnix }) => {
-    console.log(sunriseUnix);
     const sunriseConvert = new Date(sunriseUnix * 1000);
     const sunrise = sunriseConvert.toLocaleTimeString();
 
