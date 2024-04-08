@@ -1,50 +1,57 @@
-import React from "react";
-import { useState, useCallback } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import debounce from "lodash.debounce";
 import st from "./styles.module.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const SearchString = ({ onChange, checked, onChangeForecast }) => {
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState("");
 
-  const handlerChangeInput = (e) => {
+  const handleChangeInput = (e) => {
     setLocation(e.target.value);
   };
 
-  /* eslint-disable */
-  const fetchWeatherCurrentData = useCallback(
-    (location) => {
-      if (location) {
-        fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=61e76cb2a5d0d8548e0aecd3823f2abc&units=metric&lang=ru`
-        )
-          .then((response) => {
-            if (response.status === 200) toast("Данные успешно получены!");
-            return response.json();
-          })
-          .then((data) => {
-            onChange(
-              location,
-              data.main.temp,
-              data.weather[0].description,
-              data.main.pressure,
-              data.weather[0].main,
-              data.main.humidity,
-              data.wind.speed,
-              data.sys.sunrise,
-              data.sys.sunset
-            );
-          })
-          .catch(() => {
-            toast("Упс! Что-то пошло не так...");
-            console.log("error");
-          });
-      }
-    },
-    [location]
+  const debouncedHandleChangeInput = useMemo(
+    () => debounce(handleChangeInput, 500),
+    []
   );
 
-  const fetchWeatherForecastData = useCallback((location) => {
+  useEffect(() => {
+    return () => {
+      debouncedHandleChangeInput.cancel();
+    };
+  }, [debouncedHandleChangeInput]);
+
+  const fetchWeatherCurrentData = (location) => {
+    if (location) {
+      fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=61e76cb2a5d0d8548e0aecd3823f2abc&units=metric&lang=ru`
+      )
+        .then((response) => {
+          if (response.status === 200) toast("Данные успешно получены!");
+          return response.json();
+        })
+        .then((data) => {
+          onChange(
+            location,
+            data.main.temp,
+            data.weather[0].description,
+            data.main.pressure,
+            data.weather[0].main,
+            data.main.humidity,
+            data.wind.speed,
+            data.sys.sunrise,
+            data.sys.sunset
+          );
+        })
+        .catch(() => {
+          toast("Упс! Что-то пошло не так...");
+          console.log("error");
+        });
+    }
+  };
+
+  const fetchWeatherForecastData = (location) => {
     if (location) {
       fetch(
         `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=61e76cb2a5d0d8548e0aecd3823f2abc&units=metric&lang=ru`
@@ -54,7 +61,6 @@ const SearchString = ({ onChange, checked, onChangeForecast }) => {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
           onChangeForecast(data);
         })
         .catch(() => {
@@ -62,9 +68,8 @@ const SearchString = ({ onChange, checked, onChangeForecast }) => {
           console.log("error");
         });
     }
-  }, [location]);
+  };
 
-  /* eslint-enable */
   const handlerKeyPress = (event) => {
     const { key } = event;
     if (key === "Enter" && checked === false) {
@@ -99,10 +104,8 @@ const SearchString = ({ onChange, checked, onChangeForecast }) => {
         <input
           className={st.searchStringInput}
           placeholder={"Искать местоположение"}
-          onChange={handlerChangeInput}
+          onChange={debouncedHandleChangeInput}
           onKeyDown={handlerKeyPress}
-          value={location}
-          onInput={(e) => setLocation(e.target.value)}
         ></input>
         <button className={st.forecastButton} onClick={handleClickForecast}>
           <svg

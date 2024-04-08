@@ -1,12 +1,57 @@
+.fiveDaysContainer {
+    margin-top: 105px;
+    margin-left: -1000px;
+}
+
 .fiveDaysHeader {
     font-family: Arial, sans-serif;
     font-size: 50px;
     display: inline-block;
-    margin-top: 105px;
-    margin-left: -1000px;
     color: #FFFF00;
     text-shadow: 2px 2px 5px #8B4513;
     font-weight: 500;
     width: 700px;
     height: 80px;
+}
+
+.dayContainer {
+    width: 607px;
+    height: 75px;
+    background-color: #FFFF96;
+    border-radius: 30px;
+    border: #8B4513 2px solid;
+    margin-bottom: 13px;
+    display: flex;
+    align-items: center;
+    padding: 0 30px 0 30px;
+    position: relative;
+    color: #851E58;
+}
+
+.dayTempMax {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+}
+
+.dayTempMin {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+}
+
+.dateContainer {
+    position: absolute;
+    right: 70px;
+    display: flex;
+    align-items: center;
+}
+
+.dayTimestamp {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 27px;
+}
+
+.monthAndWeekday {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    margin-left: 12px;
 }

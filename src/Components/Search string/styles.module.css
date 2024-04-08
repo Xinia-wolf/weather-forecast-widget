@@ -6,8 +6,8 @@
     background-color: #FFFF73;
     padding-left: 10px;
     border-radius: 30px;
-    border: #9e9ea0 2px solid;
-    color: #232323;
+    border: #8B4513 2px solid;
+    color: #851E58;
     width: 230px;
     height: 40px;
     display: flex;
@@ -20,7 +20,7 @@
     margin-left: 2px;
     border: none;
     width: 155px;
-    color: #232323;
+    color: #851E58;
 }
 
 .forecastButton {
@@ -28,9 +28,9 @@
     height: 40px;
     border-radius: 45%;
     background-color: transparent;
-    color: #232323;
+    color: #851E58;
     border: none;
-    border-left: #9e9ea0 3px solid;
+    border-left: #8B4513 3px solid;
     transition: 0.3s;
     margin-left: 2px;
 }
