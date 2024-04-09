@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const GeoButton = ({ onChange, checked, onChangeForecast }) => {
   const [location, setLocation] = useState(null);
+  const [fetched, hasFetched] = useState(false);
 
   /* eslint-disable */
   const fetchWeatherCurrentData = useCallback(
@@ -91,13 +92,12 @@ const GeoButton = ({ onChange, checked, onChangeForecast }) => {
 
   useEffect(() => {
     if (location) {
-      if (checked === false) {
+      if (checked === false && fetched === false) {
         fetchWeatherCurrentData(location.latitude, location.longitude);
-      } else {
-        fetchWeatherForecastData(location.latitude, location.longitude);
+        hasFetched(true);
       }
     }
-  }, [location, checked, fetchWeatherCurrentData, fetchWeatherForecastData]);
+  }, [location, checked, fetchWeatherCurrentData, fetchWeatherForecastData, fetched]);
 
   const handleClickGeo = () => {
     if (checked === false) {

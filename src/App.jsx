@@ -105,7 +105,11 @@ function App() {
         display: "flex",
       }}
     >
-      <SwitchData onChange={switchData} location={location} />
+      <SwitchData
+        onChange={switchData}
+        location={location}
+        onChangeForecast={handleChangeForecast}
+      />
       <GeoButton
         onChange={handleChange}
         checked={checked}
@@ -117,9 +121,7 @@ function App() {
         onChangeForecast={handleChangeForecast}
       />
       {checked ? (
-        <FiveDays
-          forecastData={forecastData}
-        />
+        <FiveDays forecastData={forecastData} onChangeLocation={handleChange}/>
       ) : (
         <>
           <TempBlock temp={temp} />
