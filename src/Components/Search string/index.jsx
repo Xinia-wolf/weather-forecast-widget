@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
-import debounce from "lodash.debounce";
+import React, { useState } from "react";
 import st from "./styles.module.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,17 +9,6 @@ const SearchString = ({ onChange, checked, onChangeForecast }) => {
   const handleChangeInput = (e) => {
     setLocation(e.target.value);
   };
-
-  const debouncedHandleChangeInput = useMemo(
-    () => debounce(handleChangeInput, 500),
-    []
-  );
-
-  useEffect(() => {
-    return () => {
-      debouncedHandleChangeInput.cancel();
-    };
-  }, [debouncedHandleChangeInput]);
 
   const fetchWeatherCurrentData = (location) => {
     if (location) {
@@ -43,6 +31,7 @@ const SearchString = ({ onChange, checked, onChangeForecast }) => {
             data.sys.sunrise,
             data.sys.sunset
           );
+          console.log(data);
         })
         .catch(() => {
           toast("Упс! Что-то пошло не так...");
@@ -62,6 +51,7 @@ const SearchString = ({ onChange, checked, onChangeForecast }) => {
         })
         .then((data) => {
           onChangeForecast(data);
+          console.log(data);
         })
         .catch(() => {
           toast("Упс! Что-то пошло не так...");
@@ -74,7 +64,7 @@ const SearchString = ({ onChange, checked, onChangeForecast }) => {
     const { key } = event;
     if (key === "Enter" && checked === false) {
       fetchWeatherCurrentData(location);
-    } else {
+    } else if (key === "Enter" && checked === true) {
       fetchWeatherForecastData(location);
     }
   };
@@ -102,9 +92,11 @@ const SearchString = ({ onChange, checked, onChangeForecast }) => {
           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
         </svg>
         <input
+          type="text"
+          value={location}
           className={st.searchStringInput}
           placeholder={"Искать местоположение"}
-          onChange={debouncedHandleChangeInput}
+          onChange={handleChangeInput}
           onKeyDown={handlerKeyPress}
         ></input>
         <button className={st.forecastButton} onClick={handleClickForecast}>

@@ -29,6 +29,7 @@ const GeoButton = ({ onChange, checked, onChangeForecast }) => {
               data.sys.sunrise,
               data.sys.sunset
             );
+            console.log(data);
           })
           .catch(() => {
             toast("Упс! Что-то пошло не так...");
