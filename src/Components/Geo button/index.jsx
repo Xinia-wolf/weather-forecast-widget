@@ -1,11 +1,13 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import st from "./styles.module.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { WeatherDataContext } from "../Context";
 
 const GeoButton = ({ onChange, checked, onChangeForecast }) => {
-  const [location, setLocation] = useState(null);
+  const { location, setLocation } = useContext(WeatherDataContext);
   const [fetched, hasFetched] = useState(false);
+  const [ currentGeoLocation, setCurrentGeoLocation ] = useState("");
 
   /* eslint-disable */
   const fetchWeatherCurrentData = useCallback(
@@ -30,6 +32,7 @@ const GeoButton = ({ onChange, checked, onChangeForecast }) => {
               data.sys.sunrise,
               data.sys.sunset
             );
+            setLocation(location);
             console.log(data);
           })
           .catch(() => {
@@ -53,6 +56,7 @@ const GeoButton = ({ onChange, checked, onChangeForecast }) => {
           })
           .then((data) => {
             onChangeForecast(data);
+            setLocation(data.city.name);
             console.log(data);
           })
           .catch(() => {
@@ -73,6 +77,7 @@ const GeoButton = ({ onChange, checked, onChangeForecast }) => {
           if (result.state === "granted" || result.state === "prompt") {
             navigator.geolocation.getCurrentPosition(
               (pos) => {
+                setCurrentGeoLocation(pos.coords);
                 setLocation(pos.coords);
               },
               (err) => {
@@ -88,22 +93,22 @@ const GeoButton = ({ onChange, checked, onChangeForecast }) => {
     } else {
       alert("Геолокация не поддерживается браузером");
     }
-  }, []);
+  }, [setLocation]);
 
   useEffect(() => {
-    if (location) {
+    if (currentGeoLocation) {
       if (checked === false && fetched === false) {
-        fetchWeatherCurrentData(location.latitude, location.longitude);
+        fetchWeatherCurrentData(currentGeoLocation.latitude, currentGeoLocation.longitude);
         hasFetched(true);
       }
     }
-  }, [location, checked, fetchWeatherCurrentData, fetchWeatherForecastData, fetched]);
+  }, [location, checked, fetchWeatherCurrentData, fetchWeatherForecastData, fetched, currentGeoLocation]);
 
   const handleClickGeo = () => {
     if (checked === false) {
-      fetchWeatherCurrentData(location.latitude, location.longitude);
+      fetchWeatherCurrentData(currentGeoLocation.latitude, currentGeoLocation.longitude);
     } else {
-      fetchWeatherForecastData(location.latitude, location.longitude);
+      fetchWeatherForecastData(currentGeoLocation.latitude, currentGeoLocation.longitude);
     }
   };
 

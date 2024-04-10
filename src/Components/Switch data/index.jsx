@@ -1,12 +1,13 @@
 import React from "react";
 import st from "./styles.module.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { WeatherDataContext } from "../Context";
 
-const SwitchData = ({ onChange, location, onChangeForecast, onChangeLocation }) => {
+const SwitchData = ({ onChange, onChangeForecast, onChangeLocation }) => {
   const [checked, setChecked] = useState(true);
-  const [newData, setNewData] = useState({});
+  const { location, setLocation } = useContext(WeatherDataContext);
 
   const fetchWeatherForecastData = (location) => {
     if (location) {
@@ -19,7 +20,7 @@ const SwitchData = ({ onChange, location, onChangeForecast, onChangeLocation }) 
         })
         .then((data) => {
           onChangeForecast(data);
-          setNewData(data);
+          setLocation(data.city.name);
           console.log(data);
         })
         .catch(() => {
@@ -50,6 +51,7 @@ const SwitchData = ({ onChange, location, onChangeForecast, onChangeLocation }) 
             data.sys.sunrise,
             data.sys.sunset
           );
+          setLocation(location);
           console.log(data);
         })
         .catch(() => {
@@ -65,7 +67,7 @@ const SwitchData = ({ onChange, location, onChangeForecast, onChangeLocation }) 
     if (checked === true) {
       fetchWeatherForecastData(location);
     } else if (checked === false) {
-      fetchWeatherCurrentData(newData.city.name);
+      fetchWeatherCurrentData(location);
     }
     
   };

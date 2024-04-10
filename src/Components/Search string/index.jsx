@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import st from "./styles.module.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { WeatherDataContext } from "../Context";
 
 const SearchString = ({ onChange, checked, onChangeForecast }) => {
-  const [location, setLocation] = useState("");
+  const [ inputLocation, setInputLocation ] = useState("");
+  const { setLocation } = useContext(WeatherDataContext);
 
   const handleChangeInput = (e) => {
-    setLocation(e.target.value);
+    setInputLocation(e.target.value);
   };
 
-  const fetchWeatherCurrentData = (location) => {
-    if (location) {
+  const fetchWeatherCurrentData = (inputLocation) => {
+    if (inputLocation) {
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=61e76cb2a5d0d8548e0aecd3823f2abc&units=metric&lang=ru`
+        `https://api.openweathermap.org/data/2.5/weather?q=${inputLocation}&appid=61e76cb2a5d0d8548e0aecd3823f2abc&units=metric&lang=ru`
       )
         .then((response) => {
           if (response.status === 200) toast("Данные успешно получены!");
@@ -21,7 +23,7 @@ const SearchString = ({ onChange, checked, onChangeForecast }) => {
         })
         .then((data) => {
           onChange(
-            location,
+            inputLocation,
             data.main.temp,
             data.weather[0].description,
             data.main.pressure,
@@ -31,6 +33,7 @@ const SearchString = ({ onChange, checked, onChangeForecast }) => {
             data.sys.sunrise,
             data.sys.sunset
           );
+          setLocation(inputLocation);
           console.log(data);
         })
         .catch(() => {
@@ -40,10 +43,10 @@ const SearchString = ({ onChange, checked, onChangeForecast }) => {
     }
   };
 
-  const fetchWeatherForecastData = (location) => {
-    if (location) {
+  const fetchWeatherForecastData = (inputLocation) => {
+    if (inputLocation) {
       fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=61e76cb2a5d0d8548e0aecd3823f2abc&units=metric&lang=ru`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${inputLocation}&appid=61e76cb2a5d0d8548e0aecd3823f2abc&units=metric&lang=ru`
       )
         .then((response) => {
           if (response.status === 200) toast("Данные успешно получены!");
@@ -51,6 +54,7 @@ const SearchString = ({ onChange, checked, onChangeForecast }) => {
         })
         .then((data) => {
           onChangeForecast(data);
+          setLocation(inputLocation);
           console.log(data);
         })
         .catch(() => {
@@ -63,17 +67,17 @@ const SearchString = ({ onChange, checked, onChangeForecast }) => {
   const handlerKeyPress = (event) => {
     const { key } = event;
     if (key === "Enter" && checked === false) {
-      fetchWeatherCurrentData(location);
+      fetchWeatherCurrentData(inputLocation);
     } else if (key === "Enter" && checked === true) {
-      fetchWeatherForecastData(location);
+      fetchWeatherForecastData(inputLocation);
     }
   };
 
   const handleClickForecast = () => {
     if (checked === false) {
-      fetchWeatherCurrentData(location);
+      fetchWeatherCurrentData(inputLocation);
     } else {
-      fetchWeatherForecastData(location);
+      fetchWeatherForecastData(inputLocation);
     }
   };
 
@@ -93,7 +97,6 @@ const SearchString = ({ onChange, checked, onChangeForecast }) => {
         </svg>
         <input
           type="text"
-          value={location}
           className={st.searchStringInput}
           placeholder={"Искать местоположение"}
           onChange={handleChangeInput}

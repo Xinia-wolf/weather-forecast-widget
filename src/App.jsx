@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SwitchData from "./Components/Switch data";
 import FiveDays from "./Components/Five days";
+import { WeatherDataContext } from "../src/Components/Context";
 
 function App() {
   const [location, setLocation] = useState(null);
@@ -105,34 +106,38 @@ function App() {
         display: "flex",
       }}
     >
-      <SwitchData
-        onChange={switchData}
-        location={location}
-        onChangeForecast={handleChangeForecast}
-      />
-      <GeoButton
-        onChange={handleChange}
-        checked={checked}
-        onChangeForecast={handleChangeForecast}
-      />
-      <SearchString
-        onChange={handleChange}
-        checked={checked}
-        onChangeForecast={handleChangeForecast}
-      />
-      {checked ? (
-        <FiveDays forecastData={forecastData} onChangeLocation={handleChange}/>
-      ) : (
-        <>
-          <TempBlock temp={temp} />
-          <WeatherDescription description={description} />
-          <Pressure pressure={pressure} />
-          <Humidity humidity={humidity} />
-          <WindSpeed windSpeed={windSpeed} />
-          <Sunrise sunriseUnix={sunriseUnix} />
-          <Sunset sunsetUnix={sunsetUnix} />
-        </>
-      )}
+      <WeatherDataContext.Provider value={{
+        location, setLocation
+      }}>
+        <SwitchData
+          onChange={switchData}
+          onChangeForecast={handleChangeForecast}
+          onChangeLocation={handleChange}
+        />
+        <GeoButton
+          onChange={handleChange}
+          checked={checked}
+          onChangeForecast={handleChangeForecast}
+        />
+        <SearchString
+          onChange={handleChange}
+          checked={checked}
+          onChangeForecast={handleChangeForecast}
+        />
+        {checked ? (
+          <FiveDays forecastData={forecastData} />
+        ) : (
+          <>
+            <TempBlock temp={temp} />
+            <WeatherDescription description={description} />
+            <Pressure pressure={pressure} />
+            <Humidity humidity={humidity} />
+            <WindSpeed windSpeed={windSpeed} />
+            <Sunrise sunriseUnix={sunriseUnix} />
+            <Sunset sunsetUnix={sunsetUnix} />
+          </>
+        )}
+      </WeatherDataContext.Provider>
       <ToastContainer />
     </div>
   );
