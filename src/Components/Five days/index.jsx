@@ -26,121 +26,75 @@ const FiveDays = ({ forecastData }) => {
   const fifthDay = forecastData.list[39];
   const fifthDayDate = new Date(fifthDay.dt * 1000);
 
+  const weatherIcons = new Map([
+    [800, ClearSky],
+    [801, FewClouds],
+    [802, ScatteredClouds],
+    [803, BrokenClouds],
+    [804, BrokenClouds],
+    [500, Rain],
+    [501, Rain],
+    [502, Rain],
+    [503, Rain],
+    [504, Rain],
+    [511, Snow],
+    [520, Drizzle],
+    [521, Drizzle],
+    [522, Drizzle],
+    [531, Drizzle],
+    [701, Atmosphere],
+    [711, Atmosphere],
+    [721, Atmosphere],
+    [731, Atmosphere],
+    [741, Atmosphere],
+    [751, Atmosphere],
+    [761, Atmosphere],
+    [762, Atmosphere],
+    [771, Atmosphere],
+    [781, Atmosphere],
+    [200, Thunderstorm],
+    [201, Thunderstorm],
+    [202, Thunderstorm],
+    [210, Thunderstorm],
+    [211, Thunderstorm],
+    [212, Thunderstorm],
+    [221, Thunderstorm],
+    [230, Thunderstorm],
+    [231, Thunderstorm],
+    [232, Thunderstorm],
+    [300, Drizzle],
+    [301, Drizzle],
+    [302, Drizzle],
+    [310, Drizzle],
+    [311, Drizzle],
+    [312, Drizzle],
+    [313, Drizzle],
+    [314, Drizzle],
+    [321, Drizzle],
+    [600, Snow],
+    [601, Snow],
+    [602, Snow],
+    [611, Snow],
+    [612, Snow],
+    [613, Snow],
+    [615, Snow],
+    [616, Snow],
+    [620, Snow],
+    [621, Snow],
+    [622, Snow],
+  ]);
+
   const getWeatherIcon = (weatherId) => {
-    switch (weatherId) {
-      case 800:
-        return <img src={ClearSky} className={st.weatherIcon} alt="Clear Sky" />;
-      case 801:
-        return <img src={FewClouds} className={st.weatherIcon} alt="Few Clouds" />;
-      case 802:
-        return <img src={ScatteredClouds} className={st.weatherIcon} alt="Scattered Clouds" />;
-      case 803:
-        return <img src={BrokenClouds} className={st.weatherIcon} alt="Broken Clouds" />;
-      case 804:
-        return <img src={BrokenClouds} className={st.weatherIcon} alt="Overcast" />;
-      case 500:
-        return <img src={Rain} className={st.weatherIcon} alt="Rain" />;
-      case 501:
-        return <img src={Rain} className={st.weatherIcon} alt="Moderate Rain" />;
-      case 502:
-        return <img src={Rain} className={st.weatherIcon} alt="Heavy Intensity Rain" />;
-      case 503:
-        return <img src={Rain} className={st.weatherIcon} alt="Very Heavy Rain" />;
-      case 504:
-        return <img src={Rain} className={st.weatherIcon} alt="Extreme Rain" />;
-      case 511:
-        return <img src={Snow} className={st.weatherIcon} alt="Snow" />;
-      case 520:
-        return <img src={Drizzle} className={st.weatherIcon} alt="Light Intensity Drizzle" />;
-      case 521:
-        return <img src={Drizzle} className={st.weatherIcon} alt="Drizzle" />;
-      case 522:
-        return <img src={Drizzle} className={st.weatherIcon} alt="Heavy Intensity Drizzle" />;
-      case 531:
-        return <img src={Drizzle} className={st.weatherIcon} alt="Drizzle" />;
-      case 701:
-        return <img src={Atmosphere} className={st.weatherIcon} alt="Mist" />;
-      case 711:
-        return <img src={Atmosphere} className={st.weatherIcon} alt="Smoke" />;
-      case 721:
-        return <img src={Atmosphere} className={st.weatherIcon} alt="Haze" />;
-      case 731:
-        return <img src={Atmosphere} className={st.weatherIcon} alt="Dust" />;
-      case 741:
-        return <img src={Atmosphere} className={st.weatherIcon} alt="Fog" />;
-      case 751:
-        return <img src={Atmosphere} className={st.weatherIcon} alt="Sand" />;
-      case 761:
-        return <img src={Atmosphere} className={st.weatherIcon} alt="Dust" />;
-      case 762:
-        return <img src={Atmosphere} className={st.weatherIcon} alt="Ash" />;
-      case 771:
-        return <img src={Atmosphere} className={st.weatherIcon} alt="Squalls" />;
-      case 781:
-        return <img src={Atmosphere} className={st.weatherIcon} alt="Tornado" />;
-      case 200:
-        return <img src={Thunderstorm} className={st.weatherIcon} alt="Thunderstorm" />;
-      case 201:
-        return <img src={Thunderstorm} className={st.weatherIcon} alt="Thunderstorm" />;
-      case 202:
-        return <img src={Thunderstorm} className={st.weatherIcon} alt="Thunderstorm" />;
-      case 210:
-        return <img src={Thunderstorm} className={st.weatherIcon} alt="Thunderstorm" />;
-      case 211:
-        return <img src={Thunderstorm} className={st.weatherIcon} alt="Thunderstorm" />;
-      case 212:
-        return <img src={Thunderstorm} className={st.weatherIcon} alt="Thunderstorm" />;
-      case 221:
-        return <img src={Thunderstorm} className={st.weatherIcon} alt="Thunderstorm" />;
-      case 230:
-        return <img src={Thunderstorm} className={st.weatherIcon} alt="Thunderstorm" />;
-      case 231:
-        return <img src={Thunderstorm} className={st.weatherIcon} alt="Thunderstorm" />;
-      case 232:
-        return <img src={Thunderstorm} className={st.weatherIcon} alt="Thunderstorm" />;
-      case 300:
-        return <img src={Drizzle} className={st.weatherIcon} alt="Drizzle" />;
-      case 301:
-        return <img src={Drizzle} className={st.weatherIcon} alt="Drizzle" />;
-      case 302:
-        return <img src={Drizzle} className={st.weatherIcon} alt="Drizzle" />;
-      case 310:
-        return <img src={Drizzle} className={st.weatherIcon} alt="Drizzle" />;
-      case 311:
-        return <img src={Drizzle} className={st.weatherIcon} alt="Drizzle" />;
-      case 312:
-        return <img src={Drizzle} className={st.weatherIcon} alt="Drizzle" />;
-      case 313:
-        return <img src={Drizzle} className={st.weatherIcon} alt="Drizzle" />;
-      case 314:
-        return <img src={Drizzle} className={st.weatherIcon} alt="Drizzle" />;
-      case 321:
-        return <img src={Drizzle} className={st.weatherIcon} alt="Drizzle" />;
-      case 600:
-        return <img src={Snow} className={st.weatherIcon} alt="Snow" />;
-      case 601:
-        return <img src={Snow} className={st.weatherIcon} alt="Snow" />;
-      case 602:
-        return <img src={Snow} className={st.weatherIcon} alt="Snow" />;
-      case 611:
-        return <img src={Snow} className={st.weatherIcon} alt="Snow" />;
-      case 612:
-        return <img src={Snow} className={st.weatherIcon} alt="Snow" />;
-      case 613:
-        return <img src={Snow} className={st.weatherIcon} alt="Snow" />;
-      case 615:
-        return <img src={Snow} className={st.weatherIcon} alt="Snow" />;
-      case 616:
-        return <img src={Snow} className={st.weatherIcon} alt="Snow" />;
-      case 620:
-        return <img src={Snow} className={st.weatherIcon} alt="Snow" />;
-      case 621:
-        return <img src={Snow} className={st.weatherIcon} alt="Snow" />;
-      case 622:
-        return <img src={Snow} className={st.weatherIcon} alt="Snow" />;
-      default:
-        return <img src={FewClouds} className={st.weatherIcon} alt="Unknown" />;
-    }
+    const icon = weatherIcons.get(weatherId);
+    return icon ? (
+      <img
+        src={icon}
+        className={st.weatherIcon}
+        alt={`${icon}`}
+      />
+    ) : (
+      <img src={FewClouds} className={st.weatherIcon} alt="Unknown" />
+    );
   };
 
   return (
